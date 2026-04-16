@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  
+  --color-primary: #050505;
+  --color-accent-blue: #0088FF;
+  --color-text-dim: #999999;
+  --color-glass-bg: rgba(255, 255, 255, 0.04);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-primary text-white antialiased selection:bg-accent-blue selection:text-white;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-glass-bg backdrop-blur-xl border border-glass-border;
+  }
+  
+  .cinema-bg {
+    background: 
+      radial-gradient(circle at 70% 30%, #1a1a1a 0%, transparent 60%),
+      linear-gradient(135deg, #050505 0%, #111111 100%);
+  }
+
+  .light-streak {
+    background: linear-gradient(90deg, transparent, var(--color-accent-blue), transparent);
+  }
+  
+  .animate-blur-up {
+    animation: blur-up 0.8s var(--ease-out-expo) forwards;
+  }
+}
+
+@keyframes blur-up {
+  from {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
