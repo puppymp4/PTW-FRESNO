@@ -1,15 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: "Bodoni Moda", Georgia, serif;
   
-  --color-primary: #050505;
-  --color-accent-blue: #0088FF;
+  --color-primary: #0e0e0e;
+  --color-primary-light: #141414;
+  --color-accent-blue: #CC1100;
+  --color-accent-blue-dim: rgba(204, 17, 0, 0.15);
+  --color-accent-glow: rgba(204, 17, 0, 0.4);
   --color-text-dim: #999999;
-  --color-glass-bg: rgba(255, 255, 255, 0.04);
+  --color-text-muted: #666666;
+  --color-glass-bg: rgba(255, 255, 255, 0.08);
+  --color-glass-bg-hover: rgba(255, 255, 255, 0.12);
   --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-border-hover: rgba(255, 255, 255, 0.2);
+  --color-success: #22c55e;
+  --color-instagram-start: #833ab4;
+  --color-instagram-mid: #fd1d1d;
+  --color-instagram-end: #fcb045;
   
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -20,6 +31,12 @@
   }
   body {
     @apply bg-primary text-white antialiased selection:bg-accent-blue selection:text-white;
+    overflow-x: hidden;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 }
 
@@ -27,19 +44,84 @@
   .glass {
     @apply bg-glass-bg backdrop-blur-xl border border-glass-border;
   }
+  .glass-hover {
+    @apply hover:bg-glass-bg-hover hover:border-glass-border-hover transition-all duration-300;
+  }
   
   .cinema-bg {
-    background: 
-      radial-gradient(circle at 70% 30%, #1a1a1a 0%, transparent 60%),
-      linear-gradient(135deg, #050505 0%, #111111 100%);
+    background:
+      /* Red glow - top right */
+      radial-gradient(ellipse 700px 500px at 85% 3%, rgba(204,17,0,0.12) 0%, transparent 70%),
+      /* Red glow - left center */
+      radial-gradient(ellipse 600px 600px at 3% 35%, rgba(204,17,0,0.09) 0%, transparent 70%),
+      /* Red glow - bottom right */
+      radial-gradient(ellipse 700px 500px at 92% 75%, rgba(204,17,0,0.10) 0%, transparent 70%),
+      /* White glow - subtle center */
+      radial-gradient(ellipse 400px 400px at 50% 50%, rgba(255,255,255,0.015) 0%, transparent 70%),
+      /* Red glow - bottom left */
+      radial-gradient(ellipse 500px 400px at 8% 85%, rgba(204,17,0,0.07) 0%, transparent 70%),
+      /* Base gradient */
+      linear-gradient(180deg, #0e0e0e 0%, #151515 30%, #121212 60%, #0e0e0e 100%);
+    position: relative;
+    overflow: hidden;
   }
 
-  .light-streak {
-    background: linear-gradient(90deg, transparent, var(--color-accent-blue), transparent);
+  /* Shooting star streaks */
+  .shooting-star {
+    position: absolute;
+    height: 1px;
+    border-radius: 999px;
+    pointer-events: none;
+    opacity: 0;
+    animation: shoot var(--duration, 8s) var(--delay, 0s) infinite;
+  }
+  .shooting-star.red {
+    background: linear-gradient(90deg, transparent, rgba(204,17,0,0.5), rgba(204,17,0,0.15), transparent);
+  }
+  .shooting-star.white {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(255,255,255,0.1), transparent);
   }
   
   .animate-blur-up {
     animation: blur-up 0.8s var(--ease-out-expo) forwards;
+  }
+
+  /* Light streak accent */
+  .light-streak {
+    background: linear-gradient(90deg, transparent, rgba(204,17,0,0.15), transparent);
+  }
+
+  /* Before/After Slider */
+  .slider-handle {
+    @apply absolute top-0 bottom-0 w-[3px] bg-accent-blue cursor-ew-resize z-10;
+    filter: drop-shadow(0 0 8px var(--color-accent-glow));
+  }
+  .slider-handle::after {
+    content: '';
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border-2 border-accent-blue bg-primary/80 backdrop-blur-sm;
+  }
+  .slider-badge {
+    @apply absolute top-4 px-3 py-1 text-[10px] font-bold uppercase tracking-[3px] rounded-full z-20;
+  }
+
+  /* Sticky CTA */
+  .sticky-cta {
+    @apply fixed bottom-6 right-6 z-40 bg-accent-blue text-white rounded-full p-4 shadow-lg cursor-pointer transition-all duration-300;
+    box-shadow: 0 0 20px var(--color-accent-glow);
+  }
+  .sticky-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px var(--color-accent-glow);
+  }
+
+  /* Instagram gradient */
+  .ig-gradient {
+    background: linear-gradient(45deg, var(--color-instagram-start), var(--color-instagram-mid), var(--color-instagram-end));
+  }
+
+  /* Step progress connector */
+  .step-connector {
+    @apply h-[2px] flex-1 transition-all duration-500;
   }
 }
 
@@ -54,4 +136,32 @@
     filter: blur(0);
     transform: translateY(0);
   }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shoot {
+  0% { transform: translateX(-100px) rotate(var(--angle, -15deg)); opacity: 0; }
+  10% { opacity: 0.6; }
+  70% { opacity: 0.3; }
+  100% { transform: translateX(100vw) rotate(var(--angle, -15deg)); opacity: 0; }
+}
+
+/* prefers-reduced-motion (UI/UX Pro Max checklist) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .particle { display: none; }
 }

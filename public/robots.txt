@@ -1,0 +1,7 @@
+# PTW Fresno - robots.txt
+User-agent: *
+Allow: /
+Disallow: /pics/
+
+# Sitemap
+Sitemap: https://ptwfresno.com/sitemap.xml

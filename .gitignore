@@ -1,8 +1,68 @@
+# ═══════════════════════════════════════════════════════
+# .gitignore — PTW Fresno | Rift Media
+# ═══════════════════════════════════════════════════════
+
+# ── Dependencies ──────────────────────────────────────
 node_modules/
-build/
-dist/
-coverage/
-.DS_Store
-*.log
-.env*
+package-lock.json
+
+# ── Environment & Secrets ─────────────────────────────
+# STRICTLY block ALL .env files — never commit credentials
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.staging
+*.env
 !.env.example
+
+# ── API Keys & Credentials ───────────────────────────
+# Explicitly block common credential file patterns
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+secrets.json
+credentials.json
+service-account*.json
+
+# ── Build Artifacts ──────────────────────────────────
+dist/
+build/
+.cache/
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Vercel ────────────────────────────────────────────
+.vercel/
+
+# ── OS-Specific ──────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ── Editor / IDE ─────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# ── Workspace Files ──────────────────────────────────
+*.code-workspace
+
+# ── Agent Skills (local tooling, not shipped) ────────
+.agent/
